@@ -1,5 +1,8 @@
+package hust.soict.dsai.aims.cart.Cart;
 import java.util.Collections;
 import java.util.Comparator;
+
+import hust.soict.dsai.aims.disc.DigitalVideoDisc.DigitalVideoDisc;
 
 public class Cart{
     public static final int MAX_NUMBERS_ORDERED=20;
@@ -75,11 +78,38 @@ public class Cart{
     		}
     	}
     }
+	public boolean compareto(DigitalVideoDisc o,DigitalVideoDisc j ){
+		if (o.getTitle().compareTo(j.getTitle()) > 1){
+			return true ;
+		}else if (o.getCost()>j.getCost()){
+			return true ;
+		} else if (o.getLength()< j.getLength()) {
+			return true ;
+		}
+		return false;
+	}
+	public boolean compareto1(DigitalVideoDisc o,DigitalVideoDisc j ){
+		if (o.getTitle().compareTo(j.getTitle()) > 1){
+			return true ;
+		}else if (o.getCost()>j.getCost()){
+			return true ;
+		}
+		return false;
+	}
+
+	public boolean compareto3(DigitalVideoDisc o,DigitalVideoDisc j ){
+		if (o.getCost()<j.getCost()){
+			return true ;
+		}else if (o.getCost()==j.getCost() && o.getTitle().compareTo(j.getTitle()) >= 1){
+			return true ;
+		}
+		return false;
+	}
 	public void sortByCostCart (DigitalVideoDisc [] dvdList) {
 		System.out.println(" Sort by Cost in Cart :") ;
 		for (int i = 0; i < dvdList.length - 1; i++) {
 		    for (int j = i + 1; j < dvdList.length; j++) {
-		        if (dvdList[i].getCost()<dvdList[j].getCost()) {
+		        if (compareto3(dvdList[i],dvdList[j])) {
 		            DigitalVideoDisc temp_dvdList12 = dvdList[i];
 		            dvdList[i] = dvdList[j];
 		            dvdList[j] = temp_dvdList12;
@@ -96,7 +126,7 @@ public class Cart{
 		System.out.println(" Sort by Title in Cart :") ;
 		for (int i = 0; i < dvdList12.length - 1; i++) {
 		    for (int j = i + 1; j < dvdList12.length; j++) {
-		        if (dvdList12[i].getTitle().compareTo(dvdList12[j].getTitle()) > 1) {
+		        if (compareto1(dvdList12[i],dvdList12[j])) {
 		            DigitalVideoDisc temp_dvdList12 = dvdList12[i];
 		            dvdList12[i] = dvdList12[j];
 		            dvdList12[j] = temp_dvdList12;
@@ -125,39 +155,40 @@ public class Cart{
 			System.out.println(" no match is found");
 		}
 	}
-	public boolean compareto(DigitalVideoDisc o,DigitalVideoDisc j ){
-		if (o.getTitle().compareTo(j.getTitle()) > 1){
-			return true ;
-		}else if (o.getCost()<j.getCost()){
-			return true ;
-		} else if (o.getLength()< j.getLength()) {
-			return true ;
+	public void searchByTitle(String title) {
+		boolean found = false;
+		for(int i = 0; i < qtyOrdered; i++) {
+			if(itemsOrdered[i].isMatch(title)) {
+				System.out.println(itemsOrdered[i]);
+				found = true;
+			}
 		}
-		return false;
+		if(!found) {
+			System.out.println(" no match is found");
+		}
 	}
+	
+
 	public void print() {
 		System.out.println(" Sort by Title,Cost,Length  in Cart :") ;
-		int l = 0; 
-		for (int i = 0; i < MAX_NUMBERS_ORDERED-1; i++) {
-		    for (int j = i + 1; j < MAX_NUMBERS_ORDERED; j++) {
-		    	if (itemsOrdered[j]!= null) {
-		    		l += 1 ;
+		System.out.println("**************************CART**************************");
+		System.out.println("Ordered Items:");
+		for (int i = 0; i < qtyOrdered - 1; i++) {
+		    for (int j = i + 1; j < qtyOrdered; j++) {
+		        if (compareto(itemsOrdered[i],itemsOrdered[j])) {
+		            DigitalVideoDisc temp_dvdList12 = itemsOrdered[i];
+		            itemsOrdered[i] = itemsOrdered[j];
+		            itemsOrdered[j] = temp_dvdList12;
 		        }
 		    }
 		}
-		DigitalVideoDisc itemsOrdered1 [] = new DigitalVideoDisc[l];
-		for (int i = 0; i < itemsOrdered1.length - 1; i++) {
-		    for (int j = i + 1; j < itemsOrdered1.length; j++) {
-		        if (compareto(itemsOrdered1[i],itemsOrdered1[j]) ) {
-		            DigitalVideoDisc temp_dvdList12 = itemsOrdered1[i];
-		            itemsOrdered1[i] = itemsOrdered1[j];
-		            itemsOrdered1[j] = temp_dvdList12;
-		        }
-		    }
-		}
-        for(int i1=0;i1<itemsOrdered1.length;i1++){
-            System.out.println(itemsOrdered1[i1].toString());
+        for(int i=0;i<qtyOrdered;i++){
+        	if (itemsOrdered[i] != null){
+            System.out.println(String.format("%2d", i + 1)+"."+ itemsOrdered[i].toString());
         	}
-        }        
+        }
+		System.out.println(String.format("Total cost: %.3f", this.totalCost()));
+		System.out.println("*********************************************************");
 	}
+}
 
