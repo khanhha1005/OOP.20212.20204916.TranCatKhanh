@@ -1,0 +1,8 @@
+Questions 1:Is JAVA a Pass by Value or a Pass by Reference programming language?
+Answer :Java passes by value, not by reference since Objects are passed by reference and primitive types are passed by value. A correct statement would be: Object references are passed by value, as are primitive types.
+
+Questions 2: After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain?
+Answer :  since the two objects haven't been swapped yet so that the title of these two objects still remain 
+
+Question 3 : After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()),  why is the title of the JungleDVD changed?
+Answer : the title of the JungleDVD changed since we have created a setTitle in the DigitalVideoDisc class and we had set the title of the JungleDVD to CinderellaDVD
