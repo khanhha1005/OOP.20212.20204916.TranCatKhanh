@@ -1,2 +1,0 @@
-Questions :Is JAVA a Pass by Value or a Pass by Reference programming language?
-Answer :Java passes by value, not by reference since Objects are passed by reference and primitive types are passed by value. A correct statement would be: Object references are passed by value, as are primitive types.
