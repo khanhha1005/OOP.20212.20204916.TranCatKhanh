@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import hust.soict.dsai.aims.media.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.Media;
 
 public class DVDUtils {
-	public static String compareByCost( DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+	public static String compareByCost( Media dvd1, Media dvd2) {
         if (dvd1 == dvd2){
             return ("The same Disc ");
         }
@@ -27,18 +27,18 @@ public class DVDUtils {
 			return ("The Disc "+dvd2.getTitle()+" has higher cost than "+ dvd1.getTitle());
 		}
 	}
-	public static String compareByTitle(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+	public static String compareByTitle(Media dvd1, Media dvd2) {
         if (dvd1.getTitle().equals(dvd2.getTitle())){
             return ("The two Discs have the same Title");
         } else {
         	return ("The two Discs have the different Title ");
         }
 	} 
-	public static DigitalVideoDisc[] sortByCost (DigitalVideoDisc [] dvdList) {
+	public static Media[] sortByCost (Media [] dvdList) {
 		for (int i = 0; i < dvdList.length - 1; i++) {
 		    for (int j = i + 1; j < dvdList.length; j++) {
 		        if (dvdList[i].getCost()<dvdList[j].getCost()) {
-		            DigitalVideoDisc temp_dvdList12 = dvdList[i];
+		            Media temp_dvdList12 = dvdList[i];
 		            dvdList[i] = dvdList[j];
 		            dvdList[j] = temp_dvdList12;
 		        }
@@ -46,11 +46,11 @@ public class DVDUtils {
 		}
 		return dvdList;
 	}
-	public static DigitalVideoDisc[] sortByTitle(DigitalVideoDisc[] dvdList12) {
+	public static Media[] sortByTitle(Media[] dvdList12) {
 		for (int i = 0; i < dvdList12.length - 1; i++) {
 		    for (int j = i + 1; j < dvdList12.length; j++) {
 		        if (dvdList12[i].getTitle().compareTo(dvdList12[j].getTitle()) > 1) {
-		            DigitalVideoDisc temp_dvdList12 = dvdList12[i];
+		            Media temp_dvdList12 = dvdList12[i];
 		            dvdList12[i] = dvdList12[j];
 		            dvdList12[j] = temp_dvdList12;
 		        }

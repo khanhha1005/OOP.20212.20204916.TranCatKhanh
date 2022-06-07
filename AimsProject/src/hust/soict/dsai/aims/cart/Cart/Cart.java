@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Media;
 
@@ -15,15 +16,14 @@ public class Cart{
     		System.out.println("The cart is almost full ") ;
     	} else {
     		qtyOrdered += 1 ;
-    		if (itemsOrdered.size()== 0)  {
-    			itemsOrdered.add(disc) ;
-        		System.out.println("The disc has been added");
+    		itemsOrdered.add(disc) ;
+        	System.out.println("The disc has been added");
    			}
     	}
     	
-    }
+ 
     public void removeMedia(Media disc) {
-    	for(int i = 0 ; i < MAX_NUMBERS_ORDERED; i++) {
+    	for(int i = 0 ; i < itemsOrdered.size(); i++) {
     		if (itemsOrdered.get(i).getTitle().equals(disc.getTitle()) ) {
     			itemsOrdered.remove(i);
     			qtyOrdered -= 1;
@@ -36,11 +36,18 @@ public class Cart{
     }
     public float totalCost() {
 		float cost = 0;
-		for (int i = 0 ; i < MAX_NUMBERS_ORDERED;i++) {
-			if (itemsOrdered.get(i) != null) {
+		for (int i = 0 ; i < itemsOrdered.size();i++) {
 				cost += itemsOrdered.get(i).getCost();
-			}
 		}
+		return cost;
+    }
+    public float totalCostwithluckitems(Media dvd) {
+    	float cost = 0 ;
+    	for (int i = 0 ; i < itemsOrdered.size();i++) {
+    		if (itemsOrdered.get(i) != dvd){
+				cost += itemsOrdered.get(i).getCost();
+    		}
+    	}
 		return cost;
     }
     public void addMedia(Media [] dvdList) {
@@ -49,7 +56,7 @@ public class Cart{
     	} else {
     		qtyOrdered += dvdList.length ;
     		int k = 0 ;
-    		for (int i = 0 ;i < MAX_NUMBERS_ORDERED;i++) {
+    		for (int i = 0 ;i < itemsOrdered.size();i++) {
     			if (k < dvdList.length) {
 	    			if (itemsOrdered.get(i) == null )   {
 	    				itemsOrdered.set(i,dvdList[k]) ;
@@ -74,7 +81,7 @@ public class Cart{
     		}
     	}
     }
-	public boolean compareto(Media o,Media j ){
+	public boolean compareto(DigitalVideoDisc o, DigitalVideoDisc j ){
 		if (o.getTitle().compareTo(j.getTitle()) > 1){
 			return true ;
 		}else if (o.getCost()>j.getCost()){
@@ -84,68 +91,32 @@ public class Cart{
 		}
 		return false;
 	}
-	public boolean compareto1(Media o,Media j ){
-		if (o.getTitle().compareTo(j.getTitle()) > 1){
-			return true ;
-		}else if (o.getCost()>j.getCost()){
-			return true ;
-		}
-		return false;
-	}
-
-	public boolean compareto3(Media o,Media j ){
-		if (o.getCost()<j.getCost()){
-			return true ;
-		}else if (o.getCost()==j.getCost() && o.getTitle().compareTo(j.getTitle()) >= 1){
-			return true ;
-		}
-		return false;
-	}
-	public void sortByCostCart (Media [] dvdList) {
+	public void sortByCostCart () {
 		System.out.println(" Sort by Cost in Cart :") ;
-		for (int i = 0; i < dvdList.length - 1; i++) {
-		    for (int j = i + 1; j < dvdList.length; j++) {
-		        if (compareto3(dvdList[i],dvdList[j])) {
-		            Media temp_dvdList12 = dvdList[i];
-		            dvdList[i] = dvdList[j];
-		            dvdList[j] = temp_dvdList12;
-		        }
-		    }
-		}
-        for(int i=0;i<dvdList.length;i++){
-        	if (dvdList[i] != null){
-            System.out.println(dvdList[i].toString());
-        	}
+		itemsOrdered.stream().sorted(Comparator.comparing(Media::getCost).thenComparing(Media::getTitle));
+        for(int i=0;i<qtyOrdered;i++){
+            System.out.println(itemsOrdered.get(i).toString());
+        	
         }
 	}
-	public void sortByTitleCart(Media[] dvdList12) {
+	public void sortByTitleCart() {
 		System.out.println(" Sort by Title in Cart :") ;
-		for (int i = 0; i < dvdList12.length - 1; i++) {
-		    for (int j = i + 1; j < dvdList12.length; j++) {
-		        if (compareto1(dvdList12[i],dvdList12[j])) {
-		            Media temp_dvdList12 = dvdList12[i];
-		            dvdList12[i] = dvdList12[j];
-		            dvdList12[j] = temp_dvdList12;
-		        }
-		    }
-		}
-        for(int i=0;i<dvdList12.length;i++){
-        	if (dvdList12[i] != null){
-            System.out.println(dvdList12[i].toString());
-        	}
+		itemsOrdered.stream().sorted(Comparator.comparing(Media::getTitle).thenComparing(Media::getCost));
+        for(int i=0;i<qtyOrdered;i++){
+            System.out.println(itemsOrdered.get(i).toString());
+        	
         }
 	}
 	public void searchById(int id) {
 		System.out.println(" Search by Id :") ;
 		int  k = 0 ;
-		for (int i = 0 ; i < MAX_NUMBERS_ORDERED;i++) {
-			if  (itemsOrdered.get(i) != null) {
-				if (itemsOrdered.get(i).getId() == id) {
-					k += 1 ;
-					System.out.println(itemsOrdered.get(i).toString());
-					break;
-				}
+		for (int i = 0 ; i < itemsOrdered.size();i++) {
+			if (itemsOrdered.get(i).getId() == id) {
+				k += 1 ;
+				System.out.println(itemsOrdered.get(i).toString());
+				break;
 			}
+			
 		}
 		if (k == 0) {
 			System.out.println(" no match is found");
@@ -163,24 +134,25 @@ public class Cart{
 			System.out.println(" no match is found");
 		}
 	}
-	
+	public Media getALuckyItem() {
+		
+		int l =(int) Math.random();
+		if (itemsOrdered.size()>= 5 ) {
+			return itemsOrdered.get(l);
+		}
+		return null;
+		
+	}
 
 	public void print() {
 		System.out.println(" Sort by Title,Cost,Length  in Cart :") ;
 		System.out.println("**************************CART**************************");
 		System.out.println("Ordered Items:");
-		for (int i = 0; i < qtyOrdered - 1; i++) {
-		    for (int j = i + 1; j < qtyOrdered; j++) {
-		        if (compareto(itemsOrdered[i],itemsOrdered[j])) {
-		            Media temp_dvdList12 = itemsOrdered[i];
-		            itemsOrdered[i] = itemsOrdered[j];
-		            itemsOrdered[j] = temp_dvdList12;
-		        }
-		    }
-		}
+		itemsOrdered.stream().sorted(Comparator.comparing(Media::getTitle).thenComparing(Media::getCost));
+
         for(int i=0;i<qtyOrdered;i++){
-        	if (itemsOrdered[i] != null){
-            System.out.println(String.format("%2d", i + 1)+"."+ itemsOrdered[i].toString());
+        	if (itemsOrdered.get(i) != null){
+            System.out.println(String.format("%2d", i + 1)+"."+ itemsOrdered.get(i).toString());
         	}
         }
 		System.out.println(String.format("Total cost: %.3f", this.totalCost()));
