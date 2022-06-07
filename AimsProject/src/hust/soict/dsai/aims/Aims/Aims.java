@@ -4,7 +4,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import hust.soict.dsai.aims.cart.Cart.Cart;
-import hust.soict.dsai.aims.disc.DigitalVideoDisc.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.Media;
 
 public class Aims {
 	public static int input(int Num) {
@@ -15,7 +16,7 @@ public class Aims {
 			try {
 				option = sc.nextInt();
 		        if(option >= 0 && option <= Num){
-		        	m = 0;
+		        	m = 1;
 		        } 
 		        else {
 		        	System.out.println("Enter a number from 0 to " + Num);
@@ -30,9 +31,12 @@ public class Aims {
 		return option;
 	}
     public static void main(String[] args) {
+    	MemoryDaemon memory = new MemoryDaemon();
+
+    	memory.run();
         Cart anOrder = new Cart();
 		Scanner sc = new Scanner(System.in);
-		DigitalVideoDisc DVD = null;
+		Media DVD = null;
 		String title1,title2 ,cate1,direc ; 
 		int length;
 		float cost ;
@@ -52,17 +56,14 @@ public class Aims {
         DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin",
                 "Animation", 18.99f);
         DigitalVideoDisc[] dvdList = {dvd1,dvd2,dvd3} ;
-        anOrder.addDigitalVideoDisc(dvdList);
-        anOrder.addDigitalVideoDisc(dvd1,dvd2);
-        anOrder.removeDigitalVideoDisc(dvd3);
+
         System.out.println("Total Cost is: ");
         System.out.println(anOrder.totalCost());
         anOrder.searchById(4);
-        anOrder.sortByCostCart(dvdList);
-        anOrder.sortByTitleCart(dvdList);
 
 		Store store = new Store();
-
+		store.addMedia(dvd3);
+		store.addMedia(dvd2);
 		while (Menu!= 0 ) {
 			Aims.showMenu();
 			int Option = Aims.input(3);
@@ -85,7 +86,7 @@ public class Aims {
 						length = sc.nextInt();
 						System.out.println("enter the cost ") ;
 						cost = sc.nextFloat();
-						Store.addDigitalVideoDisc(new DigitalVideoDisc(title1,cate1,direc,length,cost));
+						Store.addMedia(new DigitalVideoDisc(title1,cate1,direc,length,cost));
 					} else if (updateOption == 2) {
 						System.out.println("Enter the title of the movie you want to remove") ;
 						title2 = sc.nextLine();
@@ -94,11 +95,12 @@ public class Aims {
 							System.out.println("No matching dvd in the store!");
 						}
 						else {
-							Store.removeDigitalVideoDisc(DVD);
+							Store.removeMedia(DVD);
 						}					
 					} else {
 						UpdateStore = 0 ;
 					}
+					
 				}
 			}
 			if (Option == 1) {
@@ -120,7 +122,7 @@ public class Aims {
 							System.out.println("No matching dvd in the store!");
 						}
 						else {
-							anOrder.addDigitalVideoDisc(DVD);		
+							anOrder.addMedia(DVD);		
 						}					
 					} else if ( OptionStore == 3) {
 						StoreMenu = 0 ;
@@ -138,6 +140,10 @@ public class Aims {
 					}
 					if (CartOption == 4) {
 						System.out.print("Your order has been placed");
+						Media luckyitems = anOrder.getALuckyItem();
+						if (luckyitems != null) {
+							System.out.println("Your lucky items is "+luckyitems.toString());
+						}
 						anOrder = new Cart();
 						CartOption = 0;
 					}
@@ -171,19 +177,20 @@ public class Aims {
 								sortCart = 0;
 							}
 							if (sortOption == 1) {
-								anOrder.sortByCostCart(dvdList);
+								anOrder.sortByCostCart();
 							}
 							if (sortOption == 2) {
-								anOrder.sortByTitleCart(dvdList);
+								anOrder.sortByTitleCart();
 							}
 						}
 					}
 				}
 				
 			}
-			
+		
 		}
 	}
+    
 
 	public static void showMenu(){
 		System.out.println("AIMS: ");
