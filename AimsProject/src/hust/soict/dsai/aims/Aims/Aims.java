@@ -31,9 +31,7 @@ public class Aims {
 		return option;
 	}
     public static void main(String[] args) {
-    	MemoryDaemon memory = new MemoryDaemon();
 
-    	memory.run();
         Cart anOrder = new Cart();
 		Scanner sc = new Scanner(System.in);
 		Media DVD = null;
@@ -55,7 +53,6 @@ public class Aims {
 
         DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin",
                 "Animation", 18.99f);
-        DigitalVideoDisc[] dvdList = {dvd1,dvd2,dvd3} ;
 
         System.out.println("Total Cost is: ");
         System.out.println(anOrder.totalCost());

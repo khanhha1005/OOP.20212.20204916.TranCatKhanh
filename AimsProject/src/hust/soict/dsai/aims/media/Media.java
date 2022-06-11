@@ -9,7 +9,8 @@ public abstract class Media {
 	private float cost ;
 	private LocalDate date;
 	private static int nMedia=0;
-
+/*	public static final Comparator<Media> COMPARE_BY_TITLE_COST = new MediaComparatorByTitleCost();*/
+/*	public static final Comparator<Media> COMPARE_BY_COST_TITLE = new MediaComparatorByCostTitle();*/
 	public Media(String title , String category , float cost) {
 		this.title = title;
 		this.category = category;
