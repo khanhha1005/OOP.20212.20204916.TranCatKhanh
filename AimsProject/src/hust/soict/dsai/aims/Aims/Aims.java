@@ -6,6 +6,7 @@ import java.util.Scanner;
 import hust.soict.dsai.aims.cart.Cart.Cart;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
+import hust.soict.dsai.aims.media.Playable;
 
 public class Aims {
 	public static int input(int Num) {
@@ -83,7 +84,11 @@ public class Aims {
 						length = sc.nextInt();
 						System.out.println("enter the cost ") ;
 						cost = sc.nextFloat();
-						Store.addMedia(new DigitalVideoDisc(title1,cate1,direc,length,cost));
+						store.addMedia(new DigitalVideoDisc(title1,cate1,direc,length,cost));
+						DVD = new DigitalVideoDisc(title1,cate1,direc,length,cost);
+						if (DVD instanceof Playable) {
+							((Playable) DVD).play();
+						}
 					} else if (updateOption == 2) {
 						System.out.println("Enter the title of the movie you want to remove") ;
 						title2 = sc.nextLine();
@@ -112,6 +117,9 @@ public class Aims {
 						}
 						else {
 							System.out.println(DVD.toString());
+							if (DVD instanceof Playable) {
+								((Playable) DVD).play();
+							}
 						}
 					}else if (OptionStore == 2) {
 						System.out.println("Enter the title of the Disc to add");
@@ -120,6 +128,9 @@ public class Aims {
 						}
 						else {
 							anOrder.addMedia(DVD);		
+							if (DVD instanceof Playable) {
+								((Playable) DVD).play();
+							}
 						}					
 					} else if ( OptionStore == 3) {
 						StoreMenu = 0 ;
@@ -157,12 +168,20 @@ public class Aims {
 								id = sc.nextInt();
 								sc.nextLine();
 								anOrder.searchById(id);
+								DVD = anOrder.searchById1(id);
+								if (DVD instanceof Playable) {
+									((Playable) DVD).play();
+								}
 							}
 							if (filterCart == 2) {
 								System.out.println("Enter the Title of the DVD:");
 								String title;
 								title = sc.nextLine();
 								anOrder.searchByTitle(title);
+								DVD = anOrder.searchByTitle1(title);
+								if (DVD instanceof Playable) {
+									((Playable) DVD).play();
+								}
 							}
 						}
 					}

@@ -8,7 +8,7 @@ public class Store {
     public static final int MAX_NUMBERS=100000;
     private static int qtyOrdered = 0 ; 
     private static ArrayList<Media> itemsInStore= new ArrayList<Media>();
-    public static void addMedia(Media disc) {
+    public void addMedia(Media disc) {
     	if (qtyOrdered == MAX_NUMBERS  ) {
     		System.out.println("The cart is almost full ") ;
     	} else {
