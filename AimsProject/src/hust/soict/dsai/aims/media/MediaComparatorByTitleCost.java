@@ -3,8 +3,18 @@ import java.util.Comparator;
 
 public class MediaComparatorByTitleCost implements Comparator<Media> {
 
-	public int compare(Media m1, Media m2) {
-		itemsOrdered.stream().sorted(Comparator.comparing(Media::getCost).thenComparing(Media::getTitle));
+	public int compare(Media media, Media media1) {
 
+		if (media.getTitle().compareToIgnoreCase(media1.getTitle())!=0)  {
+			return media.getTitle().compareToIgnoreCase(media1.getTitle());
+		} else {
+			if (media.getCost() < media1.getCost()) {
+				return 1;
+			} else if (media.getCost() > media1.getCost()) {
+				return -1;
+			} else {
+				return 0;
+			}
+		}
 	}
 }

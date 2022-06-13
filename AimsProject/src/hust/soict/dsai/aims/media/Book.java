@@ -1,14 +1,33 @@
 package hust.soict.dsai.aims.media;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Book extends Media {
 	private List<String> authors = new ArrayList<String>();
+	private String content ;
+	private List<String> contentTokens = new ArrayList<String>();
+	private Map<String,Integer> wordFrequency = new HashMap<String, Integer>();
 
-	public Book(String title, String category, List<String> authors, float cost) {
+
+	public Book(String title, String category, List<String> authors, float cost,String content) {
 		super(title, category, cost);
 		this.authors= authors;
+		this.content = content;
+	}
+	public void processContent() {
+		contentTokens = new ArrayList<String>(Arrays.asList(content.split(" ")));
+	    for (String s : contentTokens) {
+	        if (wordFrequency.containsKey(s)) {
+	        	wordFrequency.put(s, wordFrequency.get(s) + 1);
+	        } else {
+	        	wordFrequency.put(s, 1);
+	        }
+	    }
+	    System.out.println("word has processed");
 	}
 	public List<String> getAuthors() {
 		return authors;
@@ -37,7 +56,14 @@ public class Book extends Media {
 		}
 	}
 	public String toString() {
-		return "Book "+ this.getTitle()+" " + this.getCategory() + " " + this.getAuthors() +" : " + this.getCost() + " $" ;
+		return "Book "+ this.getTitle()+" " + this.getCategory() + " " + this.getAuthors() +" : " + this.getCost() + " $" +" the content length : " +this.getContentTokens().size()+ " the  token list : "+ this.getContentTokens() + " the word frequency :"+ this.getWordFrequency();
 	}
+	public List<String> getContentTokens() {
+		return contentTokens;
+	}
+	public Map<String, Integer> getWordFrequency() {
+		return wordFrequency;
+	}
+
 
 }

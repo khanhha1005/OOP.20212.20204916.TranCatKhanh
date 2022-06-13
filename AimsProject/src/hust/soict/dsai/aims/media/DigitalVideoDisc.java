@@ -23,7 +23,7 @@ public class DigitalVideoDisc extends Disc implements Playable{
 	}
 
 	public String toString() {
-		return "DVD "+ this.getTitle()+" " + this.getCategory() + " " + this.director +" "+ this.length +" : " + this.getCost() + " $" ;
+		return "DVD "+ this.getTitle()+" category " + this.getCategory() + " director  " + this.director +" length "+ this.length +" : " + this.getCost() + " $" ;
 	}
 	public boolean compareto(DigitalVideoDisc o,DigitalVideoDisc j ){
 		if (o.getTitle().compareTo(j.getTitle()) > 1){
@@ -38,6 +38,11 @@ public class DigitalVideoDisc extends Disc implements Playable{
 	public void play() {
 		System.out.println("Playing DVD: " + this.getTitle());
 		System.out.println("DVD length: " + this.getLength());
+	}
+	@Override
+	public int compareTo(DigitalVideoDisc o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}	
 
 }

@@ -134,6 +134,24 @@ public class Cart{
 			System.out.println(" no match is found");
 		}
 	}
+	public   Media searchById1(int id) {
+		Media DVD = null;
+		for(int i = 0; i < qtyOrdered; i++) {
+			if(itemsOrdered.get(i).getId() == id) {
+				DVD = itemsOrdered.get(i);
+			}
+		}
+		return DVD;
+	}
+	public   Media searchByTitle1(String title) {
+		Media DVD = null;
+		for(int i = 0; i < qtyOrdered; i++) {
+			if(itemsOrdered.get(i).isMatch(title)) {
+				DVD = itemsOrdered.get(i);
+			}
+		}
+		return DVD;
+	}
 	public Media getALuckyItem() {
 		
 		int l =(int) Math.random();
