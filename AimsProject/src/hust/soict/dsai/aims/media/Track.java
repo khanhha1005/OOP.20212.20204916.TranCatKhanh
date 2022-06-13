@@ -32,11 +32,6 @@ public class Track implements Playable{
     public String toString() {
         return "Title: " + this.getTitle()  + " Length: " + this.getLength() + "s";
     }
-	@Override
-	public int compareTo(Track o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
 
 
