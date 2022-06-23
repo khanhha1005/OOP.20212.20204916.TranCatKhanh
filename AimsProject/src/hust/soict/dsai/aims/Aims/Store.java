@@ -47,4 +47,9 @@ public class Store {
 		}
 		return DVD;
 	}
+
+
+	public ArrayList<Media> getItemsInStore() {
+		return itemsInStore;
+	}
 }
