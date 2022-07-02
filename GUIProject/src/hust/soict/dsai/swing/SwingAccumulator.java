@@ -37,6 +37,8 @@ public class SwingAccumulator extends JFrame {
 
    public static void main(String[] args) { 
 	 new SwingAccumulator(); 
+	 System.out.println("java.runtime.version: " + System.getProperty("java.runtime.version", "(undefined)"));
+	 System.out.println("javafx.version: " + System.getProperty("javafx.version", "(undefined)"));
    }
 	private class TFInputListener implements ActionListener { 
 		public void actionPerformed(ActionEvent evt) {
