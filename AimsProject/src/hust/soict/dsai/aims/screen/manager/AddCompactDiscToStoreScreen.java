@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import hust.soict.dsai.aims.Aims.Store;
+import hust.soict.dsai.aims.exception.NegativePriceException;
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.Track;
 
@@ -74,7 +75,11 @@ public class AddCompactDiscToStoreScreen extends AddItemsToStoreScreen {
 					}
 				} 
 				CompactDisc disc;
-				disc = new CompactDisc(title, category,  director,Integer.parseInt(length), Float.parseFloat(cost) , artist, tracks);
+				try {
+					disc = new CompactDisc(title, category,  director,Integer.parseInt(length), Float.parseFloat(cost) , artist, tracks);
+				} catch (NegativePriceException ex) {
+					throw new RuntimeException(ex);
+				}
 				store.addMedia(disc);
 				StoreScreenCenter.add(new MediaStore(disc));
 				StoreScreenCenter.repaint();

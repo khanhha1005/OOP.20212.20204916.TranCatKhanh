@@ -3,37 +3,41 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import javax.naming.LimitExceededException;
+
+import hust.soict.dsai.aims.exception.NonExistItemsException;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Media;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Cart{
     public static final int MAX_NUMBERS_ORDERED=20;
-    private int qtyOrdered = 0 ; 
-    private ArrayList<Media> itemsOrdered= new ArrayList<Media>();
-    public void addMedia(Media disc) {
+    private int qtyOrdered = 0 ;
+	private ObservableList<Media> itemsOrdered =
+			FXCollections.observableArrayList();
+    public void addMedia(Media disc) throws LimitExceededException  {
     	if (qtyOrdered == MAX_NUMBERS_ORDERED  ) {
-    		System.out.println("The cart is almost full ") ;
-    	} else {
+    		System.out.println("The cart is  full ") ;
+    	} else if (qtyOrdered < MAX_NUMBERS_ORDERED  ){
     		qtyOrdered += 1 ;
     		itemsOrdered.add(disc) ;
         	System.out.println("The disc has been added");
-   			}
-    	}
+   		} else {
+   			throw new LimitExceededException("ERROR : The number of media has reached its limits");
+   		}
+    }
     	
  
-    public void removeMedia(Media disc) {
-    	for(int i = 0 ; i < itemsOrdered.size(); i++) {
-    		if (itemsOrdered.get(i).getTitle().equals(disc.getTitle()) ) {
-    			itemsOrdered.remove(i);
-    			qtyOrdered -= 1;
-    			String var = ""+qtyOrdered ;
-	    		System.out.println("The disc has been removed");
-	    		System.out.println("The number of disc remained is "+var);
-    			break ;
-    		}
-    	}
-    }
+    public void removeMedia(Media disc)throws NonExistItemsException {
+		if (this.itemsOrdered.remove(disc)) {
+    		System.out.println("The disc has been removed");
+		} else {
+			throw new NonExistItemsException( "the disc is not in the cart.");
+		}
+	}
+
     public float totalCost() {
 		float cost = 0;
 		for (int i = 0 ; i < itemsOrdered.size();i++) {
@@ -176,5 +180,13 @@ public class Cart{
 		System.out.println(String.format("Total cost: %.3f", this.totalCost()));
 		System.out.println("*********************************************************");
 	}
+	public ObservableList<Media> getItemsOrdered() {
+
+		return itemsOrdered;
+	}
+	public ObservableList<Media> sortByID1() {
+		return itemsOrdered.sorted(Comparator.comparing(Media::getId).thenComparing(Media::getCost));
+	}
+
 }
 
