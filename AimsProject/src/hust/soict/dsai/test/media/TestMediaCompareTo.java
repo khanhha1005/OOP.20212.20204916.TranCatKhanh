@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
+import hust.soict.dsai.aims.exception.NegativePriceException;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 
 public class TestMediaCompareTo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NegativePriceException {
         Media dvd1 = new DigitalVideoDisc("The Lion King",
                 "Animation", "Roger Allers", 87, 19.95f);
 

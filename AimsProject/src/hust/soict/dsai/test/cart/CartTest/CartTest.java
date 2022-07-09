@@ -1,10 +1,13 @@
 package hust.soict.dsai.test.cart.CartTest;
 import hust.soict.dsai.aims.cart.Cart.Cart;
+import hust.soict.dsai.aims.exception.NegativePriceException;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 
+import javax.naming.LimitExceededException;
+
 public class CartTest{
-    public static void main(String[]args){
+    public static void main(String[]args) throws NegativePriceException, LimitExceededException {
             // Createanew cart
             Cart cart=new Cart();
             // Create new dvd objects and add them to the cart

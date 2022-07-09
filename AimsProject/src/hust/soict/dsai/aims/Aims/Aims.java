@@ -7,6 +7,7 @@ import hust.soict.dsai.aims.cart.Cart.Cart;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Playable;
+import hust.soict.dsai.aims.exception.PlayerException;
 
 public class Aims {
 	public static int input(int Num) {
@@ -31,7 +32,7 @@ public class Aims {
 	     }
 		return option;
 	}
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Cart anOrder = new Cart();
 		Scanner sc = new Scanner(System.in);
@@ -208,7 +209,7 @@ public class Aims {
 	}
     
 
-	public static void showMenu(){
+	public static void showMenu()throws Exception{
 		System.out.println("AIMS: ");
 		System.out.println("--------------------------------");
 		System.out.println("1.View store");
@@ -218,7 +219,7 @@ public class Aims {
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number:0-1-2-3");
 	}
-	public static void storeMenu(){
+	public static void storeMenu()throws Exception{
         System.out.println("Options: ");
         System.out.println("--------------------------------");
         System.out.println("1.See a DVD's details");
@@ -228,7 +229,7 @@ public class Aims {
         System.out.println("--------------------------------");
         System.out.println("Please choose a number:0-1-2-3");
 	}
-	public static void cartMenu(){
+	public static void cartMenu()throws Exception{
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
 		System.out.println("1.Filter DVDs in cart");
@@ -239,7 +240,7 @@ public class Aims {
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number:0-1-2-3-4");
 	}
-	public static void updateStore() {
+	public static void updateStore()throws Exception {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
 		System.out.println("1. Add DVD(s) to the store");
@@ -248,7 +249,7 @@ public class Aims {
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2");
 	}
-	public static void filterCart() {
+	public static void filterCart() throws Exception{
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
 		System.out.println("1. Filter DVD(s) by id");
@@ -257,7 +258,7 @@ public class Aims {
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2");
 	}
-	public static void sortCart() {
+	public static void sortCart() throws Exception {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
 		System.out.println("1. Sort DVD(s) by title");

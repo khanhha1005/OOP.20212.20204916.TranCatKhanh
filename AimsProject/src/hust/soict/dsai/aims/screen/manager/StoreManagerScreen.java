@@ -24,6 +24,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import hust.soict.dsai.aims.Aims.Store;
+import hust.soict.dsai.aims.exception.NegativePriceException;
 import hust.soict.dsai.aims.media.Book;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
@@ -135,7 +136,7 @@ public class StoreManagerScreen extends JFrame {
 	}
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NegativePriceException {
 		Store myStore = new Store();
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);

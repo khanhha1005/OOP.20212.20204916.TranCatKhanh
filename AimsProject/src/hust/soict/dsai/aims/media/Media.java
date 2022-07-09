@@ -3,6 +3,8 @@ package hust.soict.dsai.aims.media;
 import java.time.LocalDate;
 import java.util.Comparator;
 
+import hust.soict.dsai.aims.exception.NegativePriceException;
+
 public abstract class Media implements Comparable<Media> {
 	private int id ;
 	private String title ;
@@ -23,6 +25,19 @@ public abstract class Media implements Comparable<Media> {
 		this.title = title;
 		nMedia += 1;
 		this.id = nMedia;
+	}
+	public Media(String title, String category, String cost) throws NumberFormatException, NegativePriceException {
+		try {
+			this.title = title;
+			this.cost = Float.parseFloat(cost);
+			if(this.cost < 0) {
+				throw new NegativePriceException("Price  must be a positive number");
+			}
+			this.category = category;
+		} catch (NumberFormatException e) {
+			System.err.println("Price  must be a positive number");
+			throw new NumberFormatException("Price  must be a positive number");
+		}
 	}
 	public int getId() {
 		return id;
@@ -63,18 +78,7 @@ public abstract class Media implements Comparable<Media> {
 		}
 		return false;
 	}
-	public boolean equals(Object media) {
-		if ( media instanceof Media) {
-			Media that = (Media) media;
-			if ((this.id == that.id) ) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
+
 	@Override
 	public int compareTo(Media o) {
 		if (this.getTitle().compareToIgnoreCase(o.getTitle())!= 0) {
@@ -83,5 +87,20 @@ public abstract class Media implements Comparable<Media> {
 			return this.getCategory().compareToIgnoreCase(o.getCategory());
 		}
 			
+	}
+	public boolean equals(Object media) {
+		try {
+			if(media instanceof Media) {
+				Media tmp = (Media) media;
+				return tmp.getTitle().toLowerCase().equals(title.toLowerCase());
+			}
+		} catch (ClassCastException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			System.err.println("Class used to compare is null!");
+		}
+		
+		return false;
 	}
 }

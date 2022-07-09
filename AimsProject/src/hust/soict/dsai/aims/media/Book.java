@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import hust.soict.dsai.aims.exception.NegativePriceException;
+
 public class Book extends Media {
 	private List<String> authors = new ArrayList<String>();
 	private String content ;

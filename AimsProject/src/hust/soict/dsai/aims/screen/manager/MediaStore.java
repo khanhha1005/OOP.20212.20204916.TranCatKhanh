@@ -18,10 +18,9 @@ import javax.swing.SwingConstants;
 
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Playable;
-import hust.soict.dsai.swing.NumberGrid.ButtonListener;
-import hust.soict.dsai.swing.SwingAccumulator.TFInputListener;
 
-public class MediaStore extends JPanel implements ActionListener {
+
+public class MediaStore extends JPanel  {
 	private Media media;
     static JFrame f;
 

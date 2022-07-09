@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import hust.soict.dsai.aims.Aims.Store;
+import hust.soict.dsai.aims.exception.NegativePriceException;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 
 
@@ -61,7 +62,11 @@ public class AddDigitalVideoDiscToStoreScreen extends AddItemsToStoreScreen {
 					}	
 				}
 				DigitalVideoDisc dvd;
-				dvd = new DigitalVideoDisc(title, category, director,Integer.parseInt(length),Float.parseFloat(cost));
+				try {
+					dvd = new DigitalVideoDisc(title, category, director,Integer.parseInt(length),Float.parseFloat(cost));
+				} catch (NegativePriceException ex) {
+					throw new RuntimeException(ex);
+				}
 				store.addMedia(dvd);
 				StoreScreenCenter.add(new MediaStore(dvd));
 				StoreScreenCenter.repaint();
